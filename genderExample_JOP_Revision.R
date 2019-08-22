@@ -1,4 +1,3 @@
-library(readstata13)
 library(data.table)
 
 library(survival)
@@ -130,7 +129,7 @@ male.out$Estimator <- c( "MLDV","rCRE", "CRE-cAME", "CRE-AME")
 
 
 ### Report the results ### 
-print(stargazer(c1,glm1,glm1, glm1,
+stargazer(c1,glm1,glm1, glm1,
           omit=c("factor*", "*.bar", "Constant"),
           omit.stat=c("all"), 
           title="Replicating Goldsmith",
@@ -143,7 +142,7 @@ print(stargazer(c1,glm1,glm1, glm1,
                     summary(cre1)$coef[names(c1$coef),1]),
           se=list(NULL, NULL,
                   summary(rcre1)$coef[names(c1$coef),2],
-                  summary(cre1)$coef[names(c1$coef),2])))
+                  summary(cre1)$coef[names(c1$coef),2]))
 
 
 

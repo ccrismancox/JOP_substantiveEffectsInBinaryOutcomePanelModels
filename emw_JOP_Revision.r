@@ -97,7 +97,7 @@ print(full.plot)
 
 ggsave(full.plot, file="Figure5.pdf", height=1.25*h, width=1.5*w)
 
-print(stargazer(m4,m4.glm2,m4.glm2, m4.glm2,
+stargazer(m4,m4.glm2,m4.glm2, m4.glm2,
           omit=c("factor*", "*.bar", "Constant"),
           omit.stat=c("all"), 
           title="Replicating ",
@@ -110,7 +110,7 @@ print(stargazer(m4,m4.glm2,m4.glm2, m4.glm2,
                     summary(mle.cre.out)$coefficients[names(m4$coef), 1]),
           se=list(NULL, NULL, 
                   summary(mle.rcre.out)$coefficients[names(m4$coef), 2],
-                  summary(mle.cre.out)$coefficients[names(m4$coef), 2])))
+                  summary(mle.cre.out)$coefficients[names(m4$coef), 2]))
 
 ##### From EMW's code for marginal effects#####
 set.seed(1)

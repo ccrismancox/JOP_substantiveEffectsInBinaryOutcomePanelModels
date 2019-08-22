@@ -1,4 +1,4 @@
-#  'Replication instructions for "Estimating Substantive Effects in Binary Outcome Panel Models: A Comparison" '
+# Replication instructions for "Estimating Substantive Effects in Binary Outcome Panel Models: A Comparison"
 # Casey Crisman-Cox 
 # August 22, 2019
 
