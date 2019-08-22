@@ -10,7 +10,6 @@ library(ggplot2)
 library(reshape2)
 library(scales)
 library(matrixStats)
-library(extrafont)
 library(data.table)
 
 cl <- makeCluster(detectCores()-1)
@@ -182,7 +181,6 @@ save.image("MC_expanded.rdata")
 rm(list=ls())
 load("MC_expanded.rdata")
 library(ggplot2)
-library(extrafont)
 library(matrixStats)
 library(reshape2) 
 library(scales)
@@ -197,7 +195,7 @@ colnames(adInfo) <- c("T", "alpha", "beta", "ybar", "dropped")
 adInfo[,ybar:= round(mean(ybar),3), by=list(T, alpha, beta)]
 adInfo[,dropped:=round(mean(dropped),2)*100, by=list(T, alpha, beta)]
 
-loadfonts(quiet=T)
+
 p1data <- cbind(NT, 
                 do.call(rbind, 
                         lapply(results,
@@ -236,7 +234,7 @@ colnames(p8data) <- c("N", "T", "alpha", "beta", "Estimator", "MSE")
 adInfo$label <- with(adInfo, paste("textstyle('%'~dropped) == ", dropped,  sep=""))
 
 h=9; w=6
-pdf(file="figureC1.pdf", height=h, width=w)
+pdf(file="FigureC1.pdf", height=h, width=w)
 g1 <- ggplot(p1data)+ #RMSE in beta
   geom_line(aes(x=N, y=(RMSE), color=Estimator, linetype=Estimator), size=1)+
   facet_grid(beta+alpha~T, labeller = label_bquote(rows= atop(beta==.(beta),alpha==.(alpha)), cols=T==.(T)) )+
@@ -287,8 +285,7 @@ g8 <- ggplot(p8data)+ #rmse in marginal
   xlab(expression(N))+
   scale_linetype_manual(values=c( "solid", "dashed", "dotdash"))+
   scale_color_manual(values=hue_pal()(4)[c(1,3,4)])+
-  theme(text=element_text(family="CM Roman"),
-        legend.position="bottom",
+  theme(legend.position="bottom",
         legend.title = element_text(size=10,
                                     face="bold"),
         legend.text = element_text(size = 10),

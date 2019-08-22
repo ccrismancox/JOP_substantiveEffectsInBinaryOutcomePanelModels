@@ -10,7 +10,6 @@ library(ggplot2)
 library(reshape2)
 library(scales)
 library(matrixStats)
-library(extrafont)
 library(data.table)
 
 cl <- makeCluster(detectCores()-1)
@@ -193,7 +192,6 @@ save.image("MCset_relevant0.rdata")
 
 rm(list=ls())
 library(ggplot2)
-library(extrafont)
 library(matrixStats)
 library(reshape2) 
 library(scales)
@@ -215,7 +213,6 @@ adInfo$label <- with(adInfo, paste("textstyle('%'~dropped) == ", dropped,  sep="
 
 
 results <- lapply(results, as.matrix)
-loadfonts(quiet=T)
 p1data <- cbind(NT, 
                 do.call(rbind, 
                         lapply(results,

@@ -172,6 +172,7 @@ save.image("MC_nonlinear.rdata")
 rm(list=ls())
 load("MC_nonlinear.rdata")
 library(ggplot2)
+library(data.table)
 library(matrixStats)
 library(reshape2) 
 library(scales)
@@ -190,7 +191,6 @@ adInfo$label <- with(adInfo, paste("textstyle('%'~dropped) == ", dropped,  sep="
 
 
 results <- lapply(results, as.matrix)
-loadfonts(quiet=T)
 p1data <- cbind(NT, 
                 do.call(rbind, 
                         lapply(results,
@@ -221,8 +221,7 @@ p5data$T <- factor(paste("T =", p5data$T), levels=paste("T =", t))
 
 p8data <- cbind(NT, do.call(rbind,
                             lapply(results,
-                                   function(x){colMeans( (x[,c("mse.mem.FFE", "mse.mem.CRE", 
-                                     "mse.mem.MLDV")]), na.rm=T)})))
+                                   function(x){colMeans( (x[,c("mse.mem.CRE", "mse.mem.MLDV")]), na.rm=T)})))
 colnames(p8data)[4:5] <- c("CRE", "MLDV")
 p8data <- melt(p8data, id.vars = c("Var1", "Var2", "Var3"))
 colnames(p8data) <- c("N", "T", "Rare", "Estimator", "MSE")

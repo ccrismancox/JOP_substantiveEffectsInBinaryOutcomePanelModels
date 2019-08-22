@@ -14,7 +14,6 @@ library(ggplot2)
 library(reshape2)
 library(scales)
 library(matrixStats)
-library(extrafont)
 library(data.table)
 source("sparseFirth.R")
 
@@ -305,7 +304,7 @@ adInfo$T <- factor(paste("T =", adInfo$T), levels=paste("T =", t))
 adInfo$label <- with(adInfo, paste("textstyle('%'~dropped) == ", dropped,  sep=""))
 
 results <- lapply(results, as.matrix)
-loadfonts(quiet=T)
+
 p1data <- cbind(NT, 
                 do.call(rbind, 
                         lapply(results,
@@ -490,23 +489,6 @@ g3 <- ggplot(p3data[! p3data$Estimator %in% c("RE","Beck", "LPM", "PML"),])+ #rm
         legend.key.size = unit(.5,"in"))
 print(g3)
 
-g4 <- ggplot(p4data[!p4data$Estimator %in% c("RE","Beck", "LPM", "PML"),])+ #bias in c
-  geom_line(aes(x=N, y=(Bias), color=Estimator, linetype=Estimator), size=1)+
-  facet_grid(Rare~T )+
-  geom_text(aes(x=95,y=Inf, label=label),
-            data=adInfo, parse=TRUE, vjust=1.1, size=5, hjust=.9, check_overlap = TRUE) +  theme_bw(16)+
-  ylab('Absolute Bias')+
-  xlab(expression(N))+
-  scale_linetype_manual(values=c( "solid", "dashed", "dotdash"))+
-  scale_color_manual(values=hue_pal()(4)[c(1,3,4)])+
-  theme(legend.position="bottom",
-        legend.title = element_text(size=18,
-                                    face="bold"),
-        legend.text = element_text(size = 18),
-        strip.text.y = element_text(size=14),
-        legend.key.size = unit(.5,"in"))
-print(g4)
-
 g5 <- ggplot(p5data[!p5data$Estimator %in% c("RE","Beck", "LPM", "PML"),])+ #rmse in pr
   geom_line(aes(x=N, y=sqrt(MSE), color=Estimator, linetype=Estimator), size=1)+
   facet_grid(Rare~T )+
@@ -588,10 +570,9 @@ h=7; w=9
 pdf(file="Figure1.pdf", height=h, width=w); g1; dev.off()
 pdf(file="FigureA1.pdf", height=h, width=w); g2; dev.off()
 pdf(file="Figure2.pdf", height=h, width=w); g3; dev.off()
-pdf(file="FigureA2.pdf", height=h, width=w); g4; dev.off()
 pdf(file="Figure3.pdf", height=h, width=w); g5; dev.off()
-pdf(file="FigureA3.pdf", height=h, width=w); g6; dev.off()
-pdf(file="FigureA4.pdf", height=h, width=w); g7; dev.off()
+pdf(file="FigureA2.pdf", height=h, width=w); g6; dev.off()
+pdf(file="FigureA3.pdf", height=h, width=w); g7; dev.off()
 pdf(file="Figure4.pdf", height=h, width=w); g8; dev.off()
 
 

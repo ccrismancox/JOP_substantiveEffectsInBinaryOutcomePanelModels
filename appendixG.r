@@ -180,6 +180,7 @@ library(ggplot2)
 library(matrixStats)
 library(reshape2) 
 library(scales)
+library(data.table)
 
 adInfo <- cbind(NT, do.call(rbind,lapply(results, function(x){return(cbind(mean(x[,"Prop.1"]), mean(x[,"Prop.dropped"])))})))
 adInfo <- data.table(adInfo)
@@ -195,7 +196,6 @@ adInfo$label <- with(adInfo, paste("textstyle('%'~dropped) == ", dropped,  sep="
 
 
 results <- lapply(results, as.matrix)
-loadfonts(quiet=T)
 p1data <- cbind(NT, 
                 do.call(rbind, 
                         lapply(results,
@@ -299,3 +299,4 @@ h=7; w=9
 pdf(file="FigureG1.pdf", height=h, width=w); g1; dev.off()
 pdf(file="FigureG2.pdf", height=h, width=w); g5; dev.off()
 pdf(file="FigureG3.pdf", height=h, width=w); g8; dev.off()
+
